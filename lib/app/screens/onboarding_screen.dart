@@ -1,5 +1,6 @@
 // Importa os pacotes necessários.
 import 'package:flutter/material.dart';
+import 'package:flutter_mental_health/app/screens/home_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -59,7 +60,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 // Imagem SVG no meio da tela.
                 Positioned(
-                  top: 100,
+                  top: 110,
                   left: 0,
                   right: 0,
                   child: SvgPicture.asset(
@@ -76,7 +77,13 @@ class OnboardingScreen extends StatelessWidget {
                     width: screenSize.width,
                     height: 70,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreen(),
+                            ),
+                            (route) => false);
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _buttonColor,
                         shape: RoundedRectangleBorder(
