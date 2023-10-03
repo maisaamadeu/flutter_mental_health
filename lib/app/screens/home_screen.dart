@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mental_health/app/core/models/emotion_model.dart';
+import 'package:flutter_mental_health/app/core/models/user_model.dart';
+import 'package:flutter_mental_health/app/shared/widgets/emotion_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final UserModel user = UserModel(username: 'Sarina');
+  List<EmotionModel> emotions = [
+    EmotionModel(
+      name: 'Feliz',
+      icon: Icons.sentiment_very_satisfied,
+      color: Color(0xffEF5DA8),
+    ),
+    EmotionModel(
+      name: 'Triste',
+      icon: Icons.sentiment_very_dissatisfied,
+      color: Color.fromARGB(255, 110, 93, 239),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +58,9 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 25,
                   ),
                   children: [
-                    const TextSpan(
-                      text: 'Sarina!',
-                      style: TextStyle(
+                    TextSpan(
+                      text: '${user.username}!',
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -63,41 +80,47 @@ class HomeScreen extends StatelessWidget {
                 height: 23,
               ),
               SizedBox(
-                height: 130,
+                height: 110,
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: emotions.length,
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => EmotionWidget(
+                    index: index,
+                    emotion: emotions[index],
+                    length: emotions.length,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 32,
+              ),
+              Text(
+                'Tarefas Disponíveis para Hoje',
+                style: GoogleFonts.alegreyaSans(
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                height: 23,
+              ),
+              Expanded(
+                child: ListView.separated(
+                  itemCount: 2,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 23,
+                  ),
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) => Container(
-                    margin: EdgeInsets.only(
-                      right: index == 5 ? 0 : 15,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: 90,
-                          height: 100,
-                          decoration: ShapeDecoration(
-                            color: const Color(0xFFAEAFF7),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        ),
-                        Text(
-                          'Calm',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.alegreyaSans(
-                            color: const Color(0xFF371B34),
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
+                    height: 160,
+                    decoration: BoxDecoration(
+                      color: Color(0xffFCDDEC),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
