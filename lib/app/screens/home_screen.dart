@@ -81,14 +81,15 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 110,
-                child: ListView.builder(
+                child: ListView.separated(
                   itemCount: emotions.length,
+                  separatorBuilder: (context, index) => const SizedBox(
+                    width: 15,
+                  ),
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => EmotionWidget(
-                    index: index,
                     emotion: emotions[index],
-                    length: emotions.length,
                   ),
                 ),
               ),
